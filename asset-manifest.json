@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/snowball-task-ui/static/css/main.0a3bb64c.chunk.css",
+    "main.js": "/snowball-task-ui/static/js/main.35029049.chunk.js",
+    "main.js.map": "/snowball-task-ui/static/js/main.35029049.chunk.js.map",
+    "runtime-main.js": "/snowball-task-ui/static/js/runtime-main.eaa05d7e.js",
+    "runtime-main.js.map": "/snowball-task-ui/static/js/runtime-main.eaa05d7e.js.map",
+    "static/js/2.e057ae8d.chunk.js": "/snowball-task-ui/static/js/2.e057ae8d.chunk.js",
+    "static/js/2.e057ae8d.chunk.js.map": "/snowball-task-ui/static/js/2.e057ae8d.chunk.js.map",
+    "index.html": "/snowball-task-ui/index.html",
+    "precache-manifest.90c0791e95be597b0e04397d2920c4ac.js": "/snowball-task-ui/precache-manifest.90c0791e95be597b0e04397d2920c4ac.js",
+    "service-worker.js": "/snowball-task-ui/service-worker.js",
+    "static/css/main.0a3bb64c.chunk.css.map": "/snowball-task-ui/static/css/main.0a3bb64c.chunk.css.map",
+    "static/js/2.e057ae8d.chunk.js.LICENSE.txt": "/snowball-task-ui/static/js/2.e057ae8d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eaa05d7e.js",
+    "static/js/2.e057ae8d.chunk.js",
+    "static/css/main.0a3bb64c.chunk.css",
+    "static/js/main.35029049.chunk.js"
+  ]
+}
