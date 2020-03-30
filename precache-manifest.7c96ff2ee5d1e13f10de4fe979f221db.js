@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "63a71b01e389d553c8fda40cb5459207",
+    "revision": "dbd87826e5154f7dc6234d9ccdeb098a",
     "url": "/snowball-task-ui/index.html"
   },
   {
-    "revision": "91e50415930aed1838fd",
+    "revision": "e7d9ebacf5736354739f",
     "url": "/snowball-task-ui/static/css/main.0a3bb64c.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/snowball-task-ui/static/js/2.e057ae8d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "91e50415930aed1838fd",
-    "url": "/snowball-task-ui/static/js/main.35029049.chunk.js"
+    "revision": "e7d9ebacf5736354739f",
+    "url": "/snowball-task-ui/static/js/main.e085aecc.chunk.js"
   },
   {
     "revision": "bdc459211be117ef07ea",

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/snowball-task-ui/precache-manifest.90c0791e95be597b0e04397d2920c4ac.js"
+  "/snowball-task-ui/precache-manifest.7c96ff2ee5d1e13f10de4fe979f221db.js"
 );
 
 self.addEventListener('message', (event) => {
