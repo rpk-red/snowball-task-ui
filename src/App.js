@@ -102,6 +102,8 @@ const App = () => {
 
         } else {
           console.log("Error", xhr.statusText);
+          setUploading(false);
+          setStatus("Fail to upload");
         }
       }
     };

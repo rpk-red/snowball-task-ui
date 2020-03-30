@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import '../assets/css/imager.css';
 import { statusEnum } from '../assets/constants/appConstants';
 
-const { DROP, DONE, PREVIEW } = statusEnum;
+const { DROP, DONE, PREVIEW, FAIL } = statusEnum;
 
 const Imager = ({
   scale,
@@ -55,7 +55,7 @@ const Imager = ({
       >
         {status}
       </div>
-      {(status === PREVIEW || status === DONE) &&
+      {(status === PREVIEW || status === DONE || status === FAIL) &&
         <div
           id="abort-imager"
           name="abort-imager"
