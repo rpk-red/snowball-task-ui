@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import Slider from './components/Slider';
+import Imager from './components/Imager';
+import { statusEnum } from './assets/constants/appConstants';
+import ButtonSubmit from './components/ButtonSubmit';
+import { UPLOAD_IMAGE_URL } from './assets/constants/apiConstants';
 
 
 const App = () => {
-  const [status, setStatus] = useState('Drop Here');
+  const [status, setStatus] = useState(statusEnum.DROP_HERE);
   const [preview, setPreview] = useState(null);
   const [percentage, setPercentage] = useState(0);
   const [enableDragDrop, setEnableDragDrop] = useState(true);
-  const [stateXhr, setStateXhr] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [scale, setScale] = useState(100);
   const [payload, setPayload] = useState(new FormData());
@@ -15,7 +18,7 @@ const App = () => {
 
   const onDragEnter = event => {
     if (enableDragDrop) {
-      setStatus('File Detected');
+      setStatus(statusEnum.FILE_DETECTED);
     }
     event.stopPropagation();
     event.preventDefault();
@@ -23,14 +26,14 @@ const App = () => {
 
   const onDragLeave = event => {
     if (enableDragDrop) {
-      setStatus('Drop Here');
+      setStatus(statusEnum.DROP_HERE);
     }
     event.preventDefault();
   }
 
   const onDragOver = event => {
     if (enableDragDrop) {
-      setStatus('Drop');
+      setStatus(statusEnum.DROP);
     }
     event.preventDefault();
   }
@@ -48,16 +51,15 @@ const App = () => {
       payload.append('image', event.dataTransfer.files[0]);
       payload.append('size', window.innerWidth)
       setPayload(payload);
-      setStatus('Preview')
+      setStatus(statusEnum.PREVIEW)
       setEnableDragDrop(false);
     }
     event.preventDefault();
   }
 
   const onAbortClick = () => {
-    // stateXhr.abort();
     setPreview(null);
-    setStatus('Drop Here');
+    setStatus(statusEnum.DROP_HERE);
     setPercentage(0);
     setPayload(new FormData());
     setEnableDragDrop(true);
@@ -75,32 +77,29 @@ const App = () => {
       const done = e.position || e.loaded
       const total = e.totalSize || e.total;
       const perc = (Math.floor(done / total * 1000) / 10);
-      if (perc >= 100) {
-        setStatus('Done');
-        // Delayed reset
-        setTimeout(() => {
-          setPreview(null);
-          setStatus('Drop Here');
-          setPercentage(0);
-          setEnableDragDrop(true);
-          setUploading(false);
-        }, 1750); // To match the transition 500 / 250
-      } else {
+      if (perc < 100) {
         setStatus(`${perc}%`);
+      }
+      else {
+        setPreview(null);
+        setStatus('Loading...')
       }
       setPercentage(perc);
     };
 
     // XHR - Make Request  
-    xhr.open('POST', 'http://localhost:5000/api/upload/image');
+    xhr.open('POST', UPLOAD_IMAGE_URL);
 
     xhr.onreadystatechange = function (oEvent) {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
           console.log(xhr.responseText)
           const res = JSON.parse(xhr.responseText);
-          console.log("xhr.onreadystatechange -> res", res.fileUrl)
-          // setPreview(res.fileUrl)
+          setStatus(statusEnum.DONE);
+          setPreview(res.fileUrl)
+          setPercentage(0);
+          setUploading(false);
+
         } else {
           console.log("Error", xhr.statusText);
         }
@@ -108,7 +107,6 @@ const App = () => {
     };
 
     xhr.send(payload);
-    setStateXhr(xhr);
   };
   const handleSlider = value => {
     setScale(value)
@@ -121,26 +119,19 @@ const App = () => {
       onDragLeave={onDragLeave}
       onDragOver={doNothing}
     >
-      <div
-        style={{ width: `${scale * 0.8}%` }}
-        className={`DropArea ${status === 'Drop' ? 'Over' : ''} ${status.indexOf('%') > -1 || status === 'Done' ? 'Uploading' : ''}`}
-        onDragOver={onDragOver}
+      <Imager
+        scale={scale}
+        status={status}
+        onDragEnter={onDragEnter}
         onDrop={onDrop}
-        onDragLeave={onDragEnter}
-      >
-        <div className={`ImageProgress ${preview ? 'Show' : ''}`}>
-          <div className="ImageProgressImage" style={{ backgroundImage: `url(${preview})` }}></div>
-          <div className="ImageProgressUploaded" style={{
-            backgroundImage: `url(${preview})`, clipPath: `inset(${100 - Number(percentage)}% 0 0 0)`
-          }}></div>
-        </div>
-        <div className={`Status ${status.indexOf('%') > -1 || status === 'Done' ? 'Uploading' : ''}`}>{status}</div>
-        {status === 'Preview' && <div className="Abort" onClick={onAbortClick}><span>&times;</span></div>}
-      </div>
+        onDragOver={onDragOver}
+        preview={preview}
+        onAbortClick={onAbortClick}
+        percentage={percentage} />
       <div className="slider">
-        <Slider className="slider" onChange={handleSlider} initial={100} min={1} max={100} />
+        <Slider onChange={handleSlider} initial={100} min={5} max={100} />
       </div>
-      <button className="buttonSubmit" type="submit" onClick={handleSubmit} disabled={!preview || uploading} > Upload image </button>
+      <ButtonSubmit onClick={handleSubmit} status={status} uploading={uploading} />
     </div>
   );
 };

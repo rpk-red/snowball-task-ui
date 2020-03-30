@@ -121,7 +121,7 @@ const Slider = ({
 
   return (
     <>
-      <RangeHeader>
+      <RangeHeader id="header-slider" name="header-slider">
         <div>{formatFn(min)}</div>
         <div>
           <strong ref={currentRef} />
@@ -129,9 +129,22 @@ const Slider = ({
           {formatFn(max)}
         </div>
       </RangeHeader>
-      <StyledRange ref={rangeRef}>
-        <StyledRangeProgress ref={rangeProgressRef} />
-        <StyledThumb ref={thumbRef} onMouseDown={handleMouseDown} />
+      <StyledRange
+        id="styled-slider"
+        name="styled-slider"
+        ref={rangeRef}
+      >
+        <StyledRangeProgress
+          id="progress-slider"
+          name="progress-slider"
+          ref={rangeProgressRef}
+        />
+        <StyledThumb
+          id="thumb-slider"
+          name="thumb-slider"
+          ref={thumbRef}
+          onMouseDown={handleMouseDown}
+        />
       </StyledRange>
     </>
   );
